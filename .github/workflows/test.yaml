@@ -13,14 +13,14 @@ jobs:
     strategy:
       matrix:
         features:
-          - color
-          - hello
+          - set-user
         baseImage:
           - debian:latest
-          - ubuntu:latest
+          - alpine:latest
           - mcr.microsoft.com/devcontainers/base:ubuntu
+          - mcr.microsoft.com/devcontainers/base:alpine
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
 
       - name: "Install latest devcontainer CLI"
         run: npm install -g @devcontainers/cli
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
 
       - name: "Install latest devcontainer CLI"
         run: npm install -g @devcontainers/cli

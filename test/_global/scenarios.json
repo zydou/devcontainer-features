@@ -1,12 +1,11 @@
 {
-    "color_and_hello": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "global_test": {
+        "image": "mcr.microsoft.com/devcontainers/base:alpine",
         "features": {
-            "color": {
-                "favorite": "purple"
-            },
-            "hello": {
-                "greeting": "Greetings"
+            "set-user": {
+                "username": "vscode",
+                "uid": "1000",
+                "gid": "1000"
             }
         }
     }
