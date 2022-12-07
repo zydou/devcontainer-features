@@ -24,6 +24,11 @@ set -e
 # # If any of the checks above exited with a non-zero exit code, the test will fail.
 # reportResults
 
+echo "content of /etc/passwd"
+cat /etc/passwd
+echo "content of /etc/group"
+cat /etc/group
+
 if [ "$(id -u vscode)" -ne 1000 ]; then
     echo '❌ Failed: UID of vscode != 1000'
     exit 1
