@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # The 'test/_global' folder is a special test folder that is not tied to a single feature.
 #
@@ -13,13 +13,21 @@
 
 set -e
 
-# Optional: Import test library bundled with the devcontainer CLI
-source dev-container-features-test-lib
+# # Optional: Import test library bundled with the devcontainer CLI
+# source dev-container-features-test-lib
 
-# Feature-specific tests
-# The 'check' command comes from the dev-container-features-test-lib.
-check "check add vscode user" bash -c "id -u vscode | grep '1000'"
+# # Feature-specific tests
+# # The 'check' command comes from the dev-container-features-test-lib.
+# check "check add vscode user" sh -c "id -u vscode | grep '1000'"
 
-# Report result
-# If any of the checks above exited with a non-zero exit code, the test will fail.
-reportResults
+# # Report result
+# # If any of the checks above exited with a non-zero exit code, the test will fail.
+# reportResults
+
+if [ "$(id -u vscode)" -ne 1000 ]; then
+    echo '❌ Failed: UID of vscode != 1000'
+    exit 1
+else
+    echo '✅ Passed: UID of vscode = 1000'
+    exit 0
+fi

@@ -1,6 +1,6 @@
 {
     "global_test": {
-        "image": "mcr.microsoft.com/devcontainers/base:alpine",
+        "image": "alpine",
         "features": {
             "set-user": {
                 "username": "vscode",

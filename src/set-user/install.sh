@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 #-------------------------------------------------------------------------------------------------------------
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
@@ -32,7 +32,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Install shadow on alpine
 if [ -x "$(command -v apk)" ] ; then
-    apk add --no-cache shadow bash
+    apk add --no-cache shadow
 fi
 
 # Create or update a non-root user to match UID/GID.
@@ -55,9 +55,9 @@ else
         groupadd --gid $USER_GID $USERNAME
     fi
     if [ "${USER_UID}" = "automatic" ]; then
-        useradd -s /bin/bash --gid $USERNAME -m $USERNAME
+        useradd -s /bin/sh --gid $USERNAME -m $USERNAME
     else
-        useradd -s /bin/bash --uid $USER_UID --gid $USERNAME -m $USERNAME
+        useradd -s /bin/sh --uid $USER_UID --gid $USERNAME -m $USERNAME
     fi
 fi
 
