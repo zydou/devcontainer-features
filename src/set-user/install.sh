@@ -35,6 +35,13 @@ if [ -x "$(command -v apk)" ] ; then
     apk add --no-cache shadow
 fi
 
+
+echo "content of /etc/passwd before setup:"
+cat /etc/passwd
+echo "content of /etc/group before setup:"
+cat /etc/group
+
+
 # Create or update a non-root user to match UID/GID.
 group_name="${USERNAME}"
 if id -u ${USERNAME} > /dev/null 2>&1; then
@@ -61,4 +68,7 @@ else
     fi
 fi
 
-echo "Done!"
+echo "content of /etc/passwd after setup:"
+cat /etc/passwd
+echo "content of /etc/group after setup:"
+cat /etc/group
