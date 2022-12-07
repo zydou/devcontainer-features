@@ -35,6 +35,7 @@ set -e
 
 if [ "$(id -u vscode)" -ne 1000 ]; then
     echo '❌ Failed: UID of vscode != 1000'
+    echo "UID = $(id -u vscode)"
     exit 1
 else
     echo '✅ Passed: UID of vscode = 1000'
