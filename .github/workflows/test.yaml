@@ -16,8 +16,9 @@ jobs:
           - set-user
         baseImage:
           - debian:latest
+          - ubuntu:latest
           - alpine:latest
-          - mcr.microsoft.com/devcontainers/base:ubuntu
+          - mcr.microsoft.com/devcontainers/base:debian
           - mcr.microsoft.com/devcontainers/base:alpine
     steps:
       - uses: actions/checkout@main
