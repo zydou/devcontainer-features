@@ -15,11 +15,12 @@ jobs:
         features:
           - set-user
         baseImage:
+          - alpine:latest
           - debian:latest
           - ubuntu:latest
-          - alpine:latest
-          - mcr.microsoft.com/devcontainers/base:debian
           - mcr.microsoft.com/devcontainers/base:alpine
+          - mcr.microsoft.com/devcontainers/base:debian
+          - mcr.microsoft.com/devcontainers/base:ubuntu
     steps:
       - uses: actions/checkout@main
 

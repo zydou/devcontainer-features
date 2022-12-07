@@ -12,7 +12,7 @@
                 "none",
                 "automatic"
             ],
-            "default": "automatic",
+            "default": "vscode",
             "description": "Enter name of non-root user to configure or none to skip"
         },
         "uid": {
