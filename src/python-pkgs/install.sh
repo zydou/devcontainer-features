@@ -90,13 +90,13 @@ if [ "$PIPX_UTILS" != "none" ] ; then
     export PIP_CACHE_DIR=/tmp/pip-tmp/cache
     PIPX_DIR=""
     if ! type pipx > /dev/null 2>&1; then
-        pip3 install --disable-pip-version-check --no-cache-dir --user --no-warn-script-location --root-user-action ignore pipx 2>&1
-        /tmp/pip-tmp/bin/pipx install --pip-args='--no-cache-dir --no-warn-script-location --root-user-action ignore' pipx
+        pip3 install --disable-pip-version-check --no-cache-dir --user --no-warn-script-location pipx 2>&1
+        /tmp/pip-tmp/bin/pipx install --pip-args='--no-cache-dir --no-warn-script-location' pipx
         PIPX_DIR="/tmp/pip-tmp/bin/"
     fi
     for util in "${PIPX_UTILS[@]}"; do
         if ! type ${util} > /dev/null 2>&1; then
-            "${PIPX_DIR}pipx" install --system-site-packages --pip-args '--no-cache-dir --force-reinstall --disable-pip-version-check --no-warn-script-location --root-user-action ignore' ${util}
+            "${PIPX_DIR}pipx" install --system-site-packages --pip-args '--no-cache-dir --force-reinstall --disable-pip-version-check --no-warn-script-location' ${util}
         else
             echo "${util} already installed. Skipping."
         fi
@@ -113,7 +113,7 @@ if [ "$PIP_PKGS" != "none" ] ; then
     echo "Installing Pypi packages..."
     export PYTHONUSERBASE=/tmp/pip-tmp
     export PIP_CACHE_DIR=/tmp/pip-tmp/cache
-    pip3 install --disable-pip-version-check --no-cache-dir --root-user-action ignore $PIP_PKGS
+    pip3 install --disable-pip-version-check --no-cache-dir $PIP_PKGS
     rm -rf /tmp/pip-tmp
 fi
 
