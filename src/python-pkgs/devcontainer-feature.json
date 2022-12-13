@@ -32,5 +32,10 @@
         "PIPX_HOME": "/usr/local/py-utils",
         "PIPX_BIN_DIR": "/usr/local/py-utils/bin",
         "PATH": "${PATH}:/usr/local/py-utils/bin"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": ["ms-python.python"]
+        }
     }
 }
