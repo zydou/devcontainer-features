@@ -1,6 +1,6 @@
 {
     "id": "python-pkgs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "Install pip (or pipx) packages",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/python-pkgs",
     "description": "Install custom packages via pip or pipx",
@@ -27,5 +27,10 @@
             "default": "none",
             "description": "Pip packages to install.(space-delimited string)"
         }
+    },
+    "containerEnv": {
+        "PIPX_HOME": "/usr/local/py-utils",
+        "PIPX_BIN_DIR": "/usr/local/py-utils/bin",
+        "PATH": "${PATH}:/usr/local/py-utils/bin"
     }
 }
