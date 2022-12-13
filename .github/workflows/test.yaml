@@ -14,11 +14,16 @@ jobs:
       matrix:
         features:
           - set-user
+          - python-pkgs
         baseImage:
-          - alpine:latest
-          - debian:latest
           - ubuntu:latest
-          - mcr.microsoft.com/devcontainers/base:alpine
+          - debian:stable
+          - debian:stable-slim
+          - python:3
+          - python:3-slim
+        include:
+          - features: "set-user"
+            baseImage: "alpine:latest"
     steps:
       - uses: actions/checkout@main
 

@@ -30,9 +30,29 @@ echo "content of /etc/group"
 cat /etc/group
 
 if [ "$(id -u vscode)" -ne 1000 ]; then
-    echo '❌ Failed: UID of vscode != 1000'
+    echo '❌ Failed(set-user): UID of vscode != 1000'
     exit 1
 else
-    echo '✅ Passed: UID of vscode = 1000'
-    exit 0
+    echo '✅ Passed(set-user): UID of vscode = 1000'
+fi
+
+if ! type pipx > /dev/null 2>&1; then
+    echo '❌ Failed(python-pkgs): pipx not found!'
+    exit 1
+else
+    echo '✅ Passed(python-pkgs): pipx installed successfully'
+fi
+
+if $(black --version | grep -q '22.10.0') ; then
+    echo '✅ Passed(python-pkgs): black (22.10.0) installed successfully'
+else
+    echo '❌ Failed(python-pkgs): black not found!'
+    exit 1
+fi
+
+if $(yapf --version | grep -q '0.30.0') ; then
+    echo '✅ Passed(python-pkgs): yapf (0.30.0) installed successfully'
+else
+    echo '❌ Failed(python-pkgs): yapf not found!'
+    exit 1
 fi

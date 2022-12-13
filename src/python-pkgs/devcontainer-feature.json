@@ -1,0 +1,31 @@
+{
+    "id": "python-pkgs",
+    "version": "1.0.0",
+    "name": "Install pip (or pipx) packages",
+    "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/python-pkgs",
+    "description": "Install custom packages via pip or pipx",
+    "options": {
+        "pipx_utils": {
+            "type": "string",
+            "proposals": [
+                "yapf",
+                "black==22.12.0",
+                "black yapf==0.32.0",
+                "none"
+            ],
+            "default": "pipx",
+            "description": "Pipx tools to install.(space-delimited string)"
+        },
+        "pip_pkgs": {
+            "type": "string",
+            "proposals": [
+                "yapf",
+                "black==22.12.0",
+                "black yapf==0.32.0",
+                "none"
+            ],
+            "default": "none",
+            "description": "Pip packages to install.(space-delimited string)"
+        }
+    }
+}
