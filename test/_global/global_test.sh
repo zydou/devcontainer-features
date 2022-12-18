@@ -36,6 +36,13 @@ else
     echo '✅ Passed(set-user): UID of vscode = 1000'
 fi
 
+if ! type htop > /dev/null 2>&1; then
+    echo '❌ Failed(system-pkgs): htop not found!'
+    exit 1
+else
+    echo '✅ Passed(system-pkgs): htop installed successfully'
+fi
+
 if ! type pipx > /dev/null 2>&1; then
     echo '❌ Failed(python-pkgs): pipx not found!'
     exit 1
@@ -56,3 +63,4 @@ else
     echo '❌ Failed(python-pkgs): yapf not found!'
     exit 1
 fi
+

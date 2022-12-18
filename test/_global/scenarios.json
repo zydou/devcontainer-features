@@ -7,6 +7,10 @@
                 "uid": "1000",
                 "gid": "1000"
             },
+            "system-pkgs": {
+                "pkgs": "htop",
+                "upgradePackages": false
+            },
             "python-pkgs": {
                 "pipx_utils": "black==22.10.0",
                 "pip_pkgs": "yapf==0.30.0"

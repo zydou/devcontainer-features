@@ -14,6 +14,7 @@ jobs:
       matrix:
         features:
           - set-user
+          - system-pkgs
           - python-pkgs
         baseImage:
           - ubuntu:latest
@@ -22,6 +23,8 @@ jobs:
           - python:3-slim
         include:
           - features: "set-user"
+            baseImage: "alpine:latest"
+          - features: "system-pkgs"
             baseImage: "alpine:latest"
           - features: "python-pkgs"
             baseImage: "python:3.6-slim"

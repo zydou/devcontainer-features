@@ -1,0 +1,29 @@
+{
+    "id": "system-pkgs",
+    "version": "1.0.0",
+    "name": "Install system packages",
+    "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/system-pkgs",
+    "description": "Install system packages from package manager",
+    "options": {
+        "pkgs": {
+            "type": "string",
+            "proposals": [
+                "zsh",
+                "zsh git",
+                "none"
+            ],
+            "default": "git",
+            "description": "Packges to install.(space-delimited string)"
+        },
+        "nonFreePackages": {
+            "type": "boolean",
+            "default": false,
+            "description": "Add packages from non-free Debian repository? (Debian only)"
+        },
+        "upgradePackages": {
+            "type": "boolean",
+            "default": true,
+            "description": "Upgrade OS packages?"
+        }
+    }
+}
