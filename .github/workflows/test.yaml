@@ -15,7 +15,6 @@ jobs:
         features:
           - set-user
           - system-pkgs
-          - python-pkgs
           - homebrew
         baseImage:
           - ubuntu:18.04
@@ -30,17 +29,7 @@ jobs:
           - features: "system-pkgs"
             baseImage: "alpine:latest"
           - features: "python-pkgs"
-            baseImage: "python:3.6-slim"
-          - features: "python-pkgs"
-            baseImage: "python:3.7-slim"
-          - features: "python-pkgs"
-            baseImage: "python:3.8-slim"
-          - features: "python-pkgs"
-            baseImage: "python:3.9-slim"
-          - features: "python-pkgs"
-            baseImage: "python:3.10-slim"
-          - features: "python-pkgs"
-            baseImage: "python:3.11-slim"
+            baseImage: "python:3-slim"
     steps:
       - uses: actions/checkout@main
 

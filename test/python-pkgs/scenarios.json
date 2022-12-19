@@ -1,0 +1,65 @@
+{
+    "py_latest": {
+        "image": "python:3-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py36": {
+        "image": "python:3.6-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.3.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py37": {
+        "image": "python:3.7-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py38": {
+        "image": "python:3.8-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py39": {
+        "image": "python:3.9-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py3_10": {
+        "image": "python:3.10-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    },
+    "py3_11": {
+        "image": "python:3.11-slim",
+        "features": {
+            "python-pkgs": {
+                "pipx_utils": "black==22.10.0",
+                "pip_pkgs": "yapf==0.30.0"
+            }
+        }
+    }
+}

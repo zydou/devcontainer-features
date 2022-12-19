@@ -40,9 +40,23 @@ else
     echo '✅ Passed(python-pkgs): pipx installed successfully'
 fi
 
-if $(python --version | grep -q '3.') ; then
-    echo '✅ Passed(python-pkgs): python (3.X) installed successfully'
+if $(python --version | grep -q '3.10') ; then
+    echo '✅ Passed(python-pkgs): python (3.10) installed successfully'
 else
     echo '❌ Failed(python-pkgs): python not found!'
+    exit 1
+fi
+
+if $(black --version | grep -q '22.10.0') ; then
+    echo '✅ Passed(python-pkgs): black (22.10.0) installed successfully'
+else
+    echo '❌ Failed(python-pkgs): black not found!'
+    exit 1
+fi
+
+if $(yapf --version | grep -q '0.30.0') ; then
+    echo '✅ Passed(python-pkgs): yapf (0.30.0) installed successfully'
+else
+    echo '❌ Failed(python-pkgs): yapf not found!'
     exit 1
 fi
