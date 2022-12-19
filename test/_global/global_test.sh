@@ -28,12 +28,12 @@ echo "content of /etc/passwd"
 cat /etc/passwd
 echo "content of /etc/group"
 cat /etc/group
-
-if [ "$(id -u vscode)" -ne 1000 ]; then
-    echo '❌ Failed(set-user): UID of vscode != 1000'
+USERNAME="linuxbrew"
+if [ "$(id -u ${USERNAME})" -ne 1000 ]; then
+    echo "❌ Failed(set-user): UID of ${USERNAME} != 1000"
     exit 1
 else
-    echo '✅ Passed(set-user): UID of vscode = 1000'
+    echo "✅ Passed(set-user): UID of ${USERNAME} = 1000"
 fi
 
 if ! type htop > /dev/null 2>&1; then
@@ -64,3 +64,12 @@ else
     exit 1
 fi
 
+su "${USERNAME}" -c "/home/${USERNAME}/.linuxbrew/bin/diff-so-fancy --colors"
+ret=$?
+if [ "$ret" -eq '0' ]; then
+    echo '✅ Passed(homebrew): homebrew installed successfully'
+    exit 0
+else
+    echo '❌ Failed(homebrew): homebrew installed failed!'
+    exit 1
+fi

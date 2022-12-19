@@ -1,0 +1,92 @@
+{
+  "name": "Homebrew",
+  "id": "homebrew",
+  "version": "1.0.0",
+  "description": "Install Homebrew and custom formulas (or init with `Brewfile`).",
+  "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/homebrew",
+  "options": {
+    "USERNAME": {
+      "type": "string",
+      "proposals": [
+        "linuxbrew"
+      ],
+      "default": "linuxbrew",
+      "description": "Install Homebrew under this user, defaults to `linuxbrew`. If you change this, you should also change `containerEnv` accordingly."
+    },
+    "SHALLOW_CLONE": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Homebrew using shallow clone. Shallow clone allows significant reduction in the installation size at the expense of not being able to run `brew update`, which effectively means the package index will be frozen at the moment of the image creation."
+    },
+    "FORMULAS": {
+      "type": "string",
+      "proposals": [
+        "gcc",
+        "git zsh",
+        "none"
+      ],
+      "default": "none",
+      "description": "Formulas to install once the brew is finished. (space-delimited string)"
+    },
+    "BREWFILE": {
+      "type": "string",
+      "proposals": [
+        "https://example.com/Brewfile",
+        "none"
+      ],
+      "default": "none",
+      "description": "Use this URL to download the `Brewfile` and then `brew bundle install` this `Brewfile`."
+    },
+    "HOMEBREW_BREW_GIT_REMOTE": {
+      "type": "string",
+      "proposals": [
+        "https://github.com/Homebrew/brew",
+        "https://mirrors.aliyun.com/homebrew/brew.git",
+        "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+      ],
+      "default": "https://github.com/Homebrew/brew",
+      "description": "Use this URL as the Homebrew/brew remote."
+    },
+    "HOMEBREW_CORE_GIT_REMOTE": {
+      "type": "string",
+      "proposals": [
+        "https://github.com/Homebrew/homebrew-core",
+        "https://mirrors.aliyun.com/homebrew/homebrew-core.git",
+        "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+      ],
+      "default": "https://github.com/Homebrew/homebrew-core",
+      "description": "Use this URL as the `Homebrew/homebrew-core` remote."
+    },
+    "HOMEBREW_BOTTLE_DOMAIN": {
+      "type": "string",
+      "proposals": [
+        "https://ghcr.io/v2/homebrew/core",
+        "https://mirrors.aliyun.com/homebrew/homebrew-bottles",
+        "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+      ],
+      "default": "https://ghcr.io/v2/homebrew/core",
+      "description": "Use this URL as the download mirror for bottles. If bottles at that URL are temporarily unavailable, the default bottle domain will be used as a fallback mirror."
+    },
+    "HOMEBREW_PIP_INDEX_URL ": {
+      "type": "string",
+      "proposals": [
+        "https://pypi.org/simple",
+        "https://pypi.tuna.tsinghua.edu.cn/simple"
+      ],
+      "default": "https://pypi.org/simple",
+      "description": "If set, `brew install` will use this URL to download PyPI package resources."
+    }
+  },
+  "containerEnv": {
+    "HOMEBREW_PREFIX": "/home/linuxbrew/.linuxbrew",
+    "HOMEBREW_CELLAR": "/home/linuxbrew/.linuxbrew/Cellar",
+    "HOMEBREW_REPOSITORY": "/home/linuxbrew/.linuxbrew/Homebrew",
+    "PATH": "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}",
+    "MANPATH": "/home/linuxbrew/.linuxbrew/share/man:${MANPATH}",
+    "INFOPATH": "/home/linuxbrew/.linuxbrew/share/info:${INFOPATH}",
+    "HOMEBREW_NO_ANALYTICS": "1"
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}

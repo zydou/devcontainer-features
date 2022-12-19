@@ -3,7 +3,7 @@
         "image": "python:3-slim",
         "features": {
             "set-user": {
-                "username": "vscode",
+                "username": "linuxbrew",
                 "uid": "1000",
                 "gid": "1000"
             },
@@ -14,6 +14,11 @@
             "python-pkgs": {
                 "pipx_utils": "black==22.10.0",
                 "pip_pkgs": "yapf==0.30.0"
+            },
+            "homebrew": {
+                "USERNAME": "linuxbrew",
+                "SHALLOW_CLONE": true,
+                "FORMULAS": "diff-so-fancy"
             }
         }
     }

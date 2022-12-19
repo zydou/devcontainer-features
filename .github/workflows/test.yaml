@@ -16,6 +16,7 @@ jobs:
           - set-user
           - system-pkgs
           - python-pkgs
+          - homebrew
         baseImage:
           - ubuntu:latest
           - debian:stable
