@@ -18,7 +18,6 @@ jobs:
           - python-pkgs
           - homebrew
         baseImage:
-          - ubuntu:devel
           - ubuntu:18.04
           - ubuntu:20.04
           - ubuntu:22.04
