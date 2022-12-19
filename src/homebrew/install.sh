@@ -3,7 +3,7 @@
 
 
 USERNAME=${USERNAME:-"linuxbrew"}
-SHALLOW_CLONE=${SHALLOW_CLONE:-"false"}
+SHALLOW_CLONE=${SHALLOW_CLONE:-"true"}
 FORMULAS=${FORMULAS:-"none"}
 BREWFILE=${BREWFILE:-"none"}
 HOMEBREW_BREW_GIT_REMOTE=${HOMEBREW_BREW_GIT_REMOTE:-"https://github.com/Homebrew/brew"}
