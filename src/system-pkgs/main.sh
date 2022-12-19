@@ -113,7 +113,7 @@ install_redhat_packages() {
         package_list="${package_list} redhat-lsb-core"
     fi
 
-    ${install_cmd} -y install ${package_list}
+    eval "${install_cmd} -y install ${package_list}"
 
     # Get to latest versions of all packages
     if [ "${UPGRADE_PACKAGES}" = "true" ]; then
@@ -128,7 +128,7 @@ install_alpine_packages() {
         exit 0
     fi
     apk update
-    apk add --no-cache "$PKGS"
+    eval "apk add --no-cache $PKGS"
 }
 
 # Bring in ID, ID_LIKE, VERSION_ID, VERSION_CODENAME

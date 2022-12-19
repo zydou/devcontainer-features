@@ -1,6 +1,6 @@
 {
     "id": "system-pkgs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "Install system packages",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/system-pkgs",
     "description": "Install system packages from package manager",
