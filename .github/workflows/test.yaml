@@ -18,10 +18,13 @@ jobs:
           - python-pkgs
           - homebrew
         baseImage:
-          - ubuntu:latest
-          - debian:stable
+          - ubuntu:devel
+          - ubuntu:18.04
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - debian:oldstable-slim
           - debian:stable-slim
-          - python:3-slim
+          - debian:unstable-slim
         include:
           - features: "set-user"
             baseImage: "alpine:latest"
