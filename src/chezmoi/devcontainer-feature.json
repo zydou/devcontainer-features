@@ -1,0 +1,42 @@
+{
+  "name": "Chezmoi",
+  "id": "chezmoi",
+  "version": "1.0.0",
+  "description": "Manage your dotfiles across multiple diverse machines, securely.",
+  "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/chezmoi",
+  "options": {
+    "username": {
+      "type": "string",
+      "proposals": [
+        "automatic",
+        "vscode",
+        "linuxbrew"
+      ],
+      "default": "automatic",
+      "description": "Install chezmoi under this user."
+    },
+    "version": {
+      "type": "string",
+      "proposals": [
+        "latest",
+        "v2.27.3"
+      ],
+      "default": "latest",
+      "description": "chezmoi version to install"
+    },
+    "dotfiles_repo": {
+      "type": "string",
+      "proposals": [
+        "GITHUB_USERNAME",
+        "https://github.com/user/repo.git",
+        "none"
+      ],
+      "default": "none",
+      "description": "Use this dotfiles repo to initialize"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/zydou/devcontainer-features/homebrew"
+  ]
+}
