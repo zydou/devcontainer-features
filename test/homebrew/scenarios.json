@@ -1,0 +1,12 @@
+{
+    "install_formula": {
+        "image": "debian:11-slim",
+        "features": {
+            "homebrew": {
+                "USERNAME": "linuxbrew",
+                "SHALLOW_CLONE": true,
+                "FORMULAS": "diff-so-fancy"
+            }
+        }
+    }
+}
