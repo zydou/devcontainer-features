@@ -5,6 +5,7 @@
 CHEZMOI_VERSION=${VERSION:-"latest"}
 DOTFILES_REPO=${DOTFILES_REPO:-"none"}
 USERNAME=${USERNAME:-"automatic"}
+ONE_SHOT=${ONE_SHOT:-"false"}
 BINDIR="/usr/bin"  # chezmoi installation directory
 cleanup() {
   source /etc/os-release
@@ -89,10 +90,14 @@ chmod +x /tmp/install_chezmoi.sh
 /tmp/install_chezmoi.sh -b ${BINDIR} -t ${CHEZMOI_VERSION} -d
 if [ "${DOTFILES_REPO}" != "none" ]; then
   echo "chezmoi init && apply"
-  su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO}"
-  su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --debug"
-  # Do it again as some scripts unexpected failed
-  su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --debug"
+  if [ "${ONE_SHOT}" = "false" ]; then
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO}"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --verbose"
+    # Do it again as some scripts unexpected failed
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --verbose"
+  else
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --verbose"
+  fi
 fi
 
 # Persist ENV

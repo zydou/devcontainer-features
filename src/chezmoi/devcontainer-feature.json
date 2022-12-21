@@ -1,7 +1,7 @@
 {
   "name": "Chezmoi",
   "id": "chezmoi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage your dotfiles across multiple diverse machines, securely.",
   "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/chezmoi",
   "options": {
@@ -33,6 +33,11 @@
       ],
       "default": "none",
       "description": "Use this dotfiles repo to initialize"
+    },
+    "one_shot": {
+      "type": "boolean",
+      "default": false,
+      "description": "use `--one-shot` during init process. It is the equivalent of `--apply`, `--depth=1`, `--force`, `--purge`, and `--purge-binary`. It attempts to install your dotfiles with chezmoi and then remove all traces of chezmoi from the system. This is useful for setting up temporary environments (e.g. Docker containers)."
     }
   },
   "installsAfter": [
