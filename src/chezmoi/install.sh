@@ -95,12 +95,12 @@ chmod +x /tmp/install_chezmoi.sh
 if [ "${DOTFILES_REPO}" != "none" ]; then
   echo "chezmoi init && apply"
   if [ "${ONE_SHOT}" = "false" ]; then
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO}"
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --no-tty"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty --verbose"
     # Do it again as some scripts unexpected failed
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty --verbose"
   else
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty --verbose"
   fi
 fi
 
