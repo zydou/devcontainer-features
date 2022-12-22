@@ -81,6 +81,10 @@ check_packages() {
 
 export DEBIAN_FRONTEND=noninteractive
 
+# Persist ENV
+echo "export DEVCONTAINER_FEATURE_CHEZMOI=1" > /etc/profile.d/99-chezmoi.sh
+chmod +x /etc/profile.d/99-chezmoi.sh
+
 # Install dependencies if missing
 check_packages git curl ca-certificates
 
@@ -100,9 +104,6 @@ if [ "${DOTFILES_REPO}" != "none" ]; then
   fi
 fi
 
-# Persist ENV
-echo "export DEVCONTAINER_FEATURE_CHEZMOI=1" > /etc/profile.d/99-chezmoi.sh
-chmod +x /etc/profile.d/99-chezmoi.sh
 
 cleanup
 cd $HOME
