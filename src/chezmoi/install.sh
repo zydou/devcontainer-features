@@ -96,17 +96,19 @@ if [ "${DOTFILES_REPO}" != "none" ]; then
   echo "chezmoi init && apply"
   if [ "${ONE_SHOT}" = "false" ]; then
     su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --no-tty"
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty"
     # Do it again as some scripts unexpected failed
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty"
   else
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty --verbose"
+    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty"
   fi
+  rm -rf "/home/${USERNAME}/.cache"
 fi
 
 
 cleanup
+
 cd $HOME
 rm -rf ./cache
-rm -f /tmp/install_chezmoi.sh
+rm -rf /tmp/*
 echo "Done!"
