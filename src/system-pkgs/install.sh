@@ -12,6 +12,7 @@ set -e
 PKGS="${PKGS:-"none"}"
 UPGRADE_PACKAGES="${UPGRADEPACKAGES:-"true"}"
 ADD_NON_FREE_PACKAGES="${NONFREEPACKAGES:-"false"}"
+ENABLE_TESTING="${TESTING_REPO:-"false"}"
 
 if [ "$(id -u)" -ne 0 ]; then
     echo -e 'Script must be run as
