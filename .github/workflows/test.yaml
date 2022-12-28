@@ -3,20 +3,37 @@ on:
   push:
     branches:
       - main
+    paths:
+      - src/**
+      - test/**
   pull_request:
   workflow_dispatch:
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      templates: ${{ steps.filter.outputs.changes }}
+    steps:
+      - uses: actions/checkout@main
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            set-user: ./**/set-user/**
+            system-pkgs: ./**/system-pkgs/**
+            python-pkgs: ./**/python-pkgs/**
+            homebrew: ./**/homebrew/**
+            chezmoi: ./**/chezmoi/**
+
   test:
+    needs: detect-changes
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
-        features:
-          - set-user
-          - system-pkgs
-          - homebrew
-          - chezmoi
+        features: ${{ fromJSON(needs.detect-changes.outputs.templates) }}
         baseImage:
           - ubuntu:18.04
           - ubuntu:20.04
@@ -24,13 +41,6 @@ jobs:
           - debian:oldstable-slim
           - debian:stable-slim
           - debian:unstable-slim
-        include:
-          - features: "set-user"
-            baseImage: "alpine:latest"
-          - features: "system-pkgs"
-            baseImage: "alpine:latest"
-          - features: "python-pkgs"
-            baseImage: "python:3-slim"
     steps:
       - uses: actions/checkout@main
 
