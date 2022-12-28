@@ -18,6 +18,7 @@ Install system packages from package manager
 | pkgs | Packges to install.(space-delimited string) | string | git |
 | nonFreePackages | Add packages from non-free Debian repository? (Debian only) | boolean | false |
 | upgradePackages | Upgrade OS packages? | boolean | true |
+| testing_repo | Enable alpine testing repo? (Alpine edge only) | boolean | true |
 
 
 
