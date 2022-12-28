@@ -1,6 +1,6 @@
 {
     "id": "system-pkgs",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "name": "Install system packages",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/system-pkgs",
     "description": "Install system packages from package manager",
@@ -27,7 +27,7 @@
         },
         "testing_repo": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "description": "Enable alpine testing repo? (Alpine edge only)"
         }
     }

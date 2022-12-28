@@ -128,7 +128,7 @@ install_alpine_packages() {
         exit 0
     fi
 
-    if [ "${ENABLE_TESTING}" = "true" ]; then
+    if [ "${TESTING_REPO}" = "true" ]; then
         echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
     fi
     eval "apk add --no-cache $PKGS"
