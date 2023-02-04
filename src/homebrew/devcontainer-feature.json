@@ -1,7 +1,7 @@
 {
   "name": "Homebrew",
   "id": "homebrew",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Install Homebrew and custom formulas (or init with `Brewfile`).",
   "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/homebrew",
   "options": {

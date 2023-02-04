@@ -115,10 +115,14 @@ ln -s "${HOMEBREW_PREFIX}/Homebrew/bin/brew" "${HOMEBREW_PREFIX}/bin"
 
 
 if [ "${FORMULAS}" != "none" ]; then
+  # https://github.com/Homebrew/brew/blob/39e158fb939dadcdf6ee0a67a0930b15f9b16b39/Library/Homebrew/brew.sh#L182
+  [[ -f /.dockerenv ]] || touch /.dockerenv
   eval "HOMEBREW_NO_AUTO_UPDATE=1 ${HOMEBREW_PREFIX}/bin/brew install ${FORMULAS}"
 fi
 
 if [ "${BREWFILE}" != "none" ]; then
+  # https://github.com/Homebrew/brew/blob/39e158fb939dadcdf6ee0a67a0930b15f9b16b39/Library/Homebrew/brew.sh#L182
+  [[ -f /.dockerenv ]] || touch /.dockerenv
   curl -o /tmp/Brewfile "${BREWFILE}"
   eval "HOMEBREW_NO_AUTO_UPDATE=1 ${HOMEBREW_PREFIX}/bin/brew bundle install --file /tmp/Brewfile --no-lock"
   rm -f /tmp/Brewfile
