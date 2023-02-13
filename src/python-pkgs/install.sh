@@ -54,7 +54,7 @@ install_python_and_pip() {
         export DEBIAN_FRONTEND=noninteractive
         apt-get update -y
         # apt-get -y install python3-minimal python3-pip libffi-dev python3-venv
-        apt-get -y install python3-pip python3-venv
+        apt-get -y install --no-install-recommends python3-pip python3-venv
     fi
 
     if type pip3 > /dev/null 2>&1; then
