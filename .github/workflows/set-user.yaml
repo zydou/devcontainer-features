@@ -1,0 +1,88 @@
+name: set-user
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/set-user.yaml
+      - src/set-user/**
+      - test/set-user/**
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    strategy:
+      fail-fast: false
+      matrix:
+        baseImage:
+          - alpine:3
+          - alpine:edge
+          - ubuntu:bionic
+          - ubuntu:focal
+          - ubuntu:jammy
+          - ubuntu:latest
+          - ubuntu:rolling
+          - ubuntu:devel
+          - debian:oldstable-slim
+          - debian:stable-slim
+          - debian:unstable-slim
+    name: ${{ github.workflow }} on ${{ matrix.baseImage }}
+    steps:
+      - uses: actions/checkout@main
+
+      - name: "Install latest devcontainer CLI"
+        run: npm install -g @devcontainers/cli
+
+      - name: "Generating tests for '${{ github.workflow }}' against '${{ matrix.baseImage }}'"
+        run: devcontainer features test --features ${{ github.workflow }} --base-image ${{ matrix.baseImage }} --log-level trace --project-folder . --skip-scenarios
+
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: "Copy folder"
+        run: |
+          mkdir CI_TMP
+          cp -r "src/${{ github.workflow }}" "CI_TMP/"
+
+      - name: "Publish Features"
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./CI_TMP"
+          generate-docs: "true"
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Move folder back"
+        run: |
+
+          cp -r "CI_TMP/${{ github.workflow }}" "src/"
+          rm -rf CI_TMP
+
+      - name: Automated Documentation
+        id: push_image_info
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          echo "Start."
+          # Configure git and Push updates
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git config pull.rebase false
+          message='Automated documentation update'
+          # Add / update and commit
+          git add */**/README.md
+          git commit -m 'Automated documentation update [skip ci]' || export NO_UPDATES=true
+          # Push
+          if [ "$NO_UPDATES" != "true" ] ; then
+              git push origin main
+          fi
