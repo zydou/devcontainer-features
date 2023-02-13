@@ -35,10 +35,8 @@ jobs:
       matrix:
         features: ${{ fromJSON(needs.detect-changes.outputs.templates) }}
         baseImage:
-          - ubuntu:18.04
           - ubuntu:20.04
           - ubuntu:22.04
-          - debian:oldstable-slim
           - debian:stable-slim
           - debian:unstable-slim
     steps:
