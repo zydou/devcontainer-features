@@ -1,6 +1,6 @@
 {
     "id": "set-user",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "name": "Set up username and UID:GID",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/set-user",
     "description": "Set up a non-root user with UID and GID",

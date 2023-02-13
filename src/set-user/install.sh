@@ -54,6 +54,14 @@ if id -u ${USERNAME} > /dev/null 2>&1; then
     if [ "${USER_UID}" != "automatic" ] && [ "$USER_UID" != "$(id -u $USERNAME)" ]; then
         usermod --uid $USER_UID $USERNAME
     fi
+
+elif id -nu ${USER_UID} > /dev/null 2>&1; then
+    # UID exists, update if needed
+    EXIST_NAME="$(id -un $USER_UID)"
+    EXIST_GROUP="$(id -gn $EXIST_NAME)"
+    groupmod --new-name $USERNAME $EXIST_GROUP
+    userdel $EXIST_NAME
+    useradd -s /bin/sh --uid $USER_UID --gid $USERNAME -m $USERNAME
 else
     # Create user
     if [ "${USER_GID}" = "automatic" ]; then

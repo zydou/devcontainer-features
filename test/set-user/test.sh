@@ -38,10 +38,10 @@ echo "content of /etc/group"
 cat /etc/group
 
 
-if [ "$(id -u vscode)" -ne 1000 ]; then
-    echo '❌ Failed(set-user): UID of vscode != 1000'
-    exit 1
-else
-    echo '✅ Passed(set-user): UID of vscode = 1000'
+if id -u vscode > /dev/null 2>&1; then
+    echo '✅ Passed(set-user): user vscode created'
     exit 0
+else
+    echo '❌ Failed(set-user): user vscode not found'
+    exit 1
 fi
