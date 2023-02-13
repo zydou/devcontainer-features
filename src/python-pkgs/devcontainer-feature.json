@@ -1,6 +1,6 @@
 {
     "id": "python-pkgs",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "name": "Install pip (or pipx) packages",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/python-pkgs",
     "description": "Install custom packages via pip or pipx",

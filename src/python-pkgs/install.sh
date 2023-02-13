@@ -9,6 +9,13 @@ set -e
 PIPX_UTILS="${PIPX_UTILS:-"none"}"
 PIP_PKGS="${PIP_PKGS:-"none"}"
 
+# pip options via environment variables
+export PIP_BREAK_SYSTEM_PACKAGES="true"
+export PIP_NO_CACHE_DIR="true"
+export PIP_FORCE_REINSTALL="true"
+export PIP_DISABLE_PIP_VERSION_CHECK="true"
+export PIP_NO_WARN_SCRIPT_LOCATION="true"
+
 # Clean up
 rm -rf /var/lib/apt/lists/*
 
@@ -54,13 +61,14 @@ install_python_and_pip() {
         export DEBIAN_FRONTEND=noninteractive
         apt-get update -y
         # apt-get -y install python3-minimal python3-pip libffi-dev python3-venv
-        apt-get -y install python3-pip python3-venv
+        apt-get -y install --no-install-recommends python3-pip python3-venv
     fi
-
-    if type pip3 > /dev/null 2>&1; then
-        echo "Updating pip..."
-        python3 -m pip install --no-cache-dir --upgrade pip
-    fi
+    ln -sf /usr/bin/python3 /usr/bin/python
+    ln -sf /usr/bin/pip3 /usr/bin/pip
+    # if type pip3 > /dev/null 2>&1; then
+    #     echo "Updating pip..."
+    #     python3 -m pip install --no-cache-dir --upgrade pip
+    # fi
 }
 
 # Install Pipx tools
@@ -90,13 +98,13 @@ if [ "$PIPX_UTILS" != "none" ] ; then
     export PIP_CACHE_DIR=/tmp/pip-tmp/cache
     PIPX_DIR=""
     if ! type pipx > /dev/null 2>&1; then
-        pip3 install --disable-pip-version-check --no-cache-dir --user --no-warn-script-location pipx 2>&1
-        /tmp/pip-tmp/bin/pipx install --pip-args='--no-cache-dir --no-warn-script-location' pipx
+        pip3 install --disable-pip-version-check --no-cache-dir --user pipx 2>&1
+        /tmp/pip-tmp/bin/pipx install --pip-args='--no-cache-dir' pipx
         PIPX_DIR="/tmp/pip-tmp/bin/"
     fi
     for util in "${PIPX_UTILS[@]}"; do
         if ! type ${util} > /dev/null 2>&1; then
-            "${PIPX_DIR}pipx" install --system-site-packages --pip-args '--no-cache-dir --force-reinstall --disable-pip-version-check --no-warn-script-location' ${util}
+            "${PIPX_DIR}pipx" install --system-site-packages --pip-args '--no-cache-dir --force-reinstall --disable-pip-version-check' ${util}
         else
             echo "${util} already installed. Skipping."
         fi
