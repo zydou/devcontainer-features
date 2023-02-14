@@ -46,26 +46,27 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: "Copy folder"
+      - name: "Backup other features"
         run: |
-          mkdir CI_TMP
-          cp -r "src/${{ github.workflow }}" "CI_TMP/"
+          mv src backup
+          mkdir src
+          mv "backup/${{ github.workflow }}" "src/"
 
       - name: "Publish Features"
         uses: devcontainers/action@v1
         with:
           publish-features: "true"
-          base-path-to-features: "./CI_TMP"
+          base-path-to-features: "./src"
           generate-docs: "true"
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Move folder back"
+      - name: "Restore backup"
         run: |
 
-          cp -r "CI_TMP/${{ github.workflow }}" "src/"
-          rm -rf CI_TMP
+          cp -r "backup/" "src/"
+          rm -rf backup
 
       - name: Automated Documentation
         id: push_image_info
