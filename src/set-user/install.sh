@@ -27,13 +27,26 @@ elif [ "${USERNAME}" = "none" ]; then
     USER_GID=0
 fi
 
-# Ensure apt is in non-interactive to avoid prompts
-export DEBIAN_FRONTEND=noninteractive
-
-# Install shadow on alpine
-if [ -x "$(command -v apk)" ] ; then
-    apk add --no-cache shadow
+# Bring in ID, ID_LIKE, VERSION_ID, VERSION_CODENAME
+. /etc/os-release
+# Get an adjusted ID independent of distro variants
+if [ "${ID}" = "debian" ] || [ "${ID_LIKE}" = "debian" ]; then
+    ADJUSTED_ID="debian"
+    # Ensure apt is in non-interactive to avoid prompts
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update -y
+    apt-get -y install --no-install-recommends sudo
+    rm -rf /var/lib/apt/lists/*
+elif [ "${ID}" = "alpine" ]; then
+    ADJUSTED_ID="alpine"
+    apk add --no-cache shadow sudo
+else
+    echo "Linux distro ${ID} not supported."
+    exit 1
 fi
+
+echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
+chmod 0440 /etc/sudoers.d/$USERNAME
 
 
 echo "content of /etc/passwd before setup:"
