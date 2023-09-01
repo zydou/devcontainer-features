@@ -14,7 +14,7 @@ USER_UID="${UID:-"automatic"}"
 USER_GID="${GID:-"automatic"}"
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
+    echo 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
     exit 1
 fi
 
@@ -31,15 +31,15 @@ fi
 . /etc/os-release
 # Get an adjusted ID independent of distro variants
 if [ "${ID}" = "debian" ] || [ "${ID_LIKE}" = "debian" ]; then
-    ADJUSTED_ID="debian"
     # Ensure apt is in non-interactive to avoid prompts
     export DEBIAN_FRONTEND=noninteractive
     apt-get update -y
     apt-get -y install --no-install-recommends sudo
     rm -rf /var/lib/apt/lists/*
+    SHELL_PATH=/bin/bash
 elif [ "${ID}" = "alpine" ]; then
-    ADJUSTED_ID="alpine"
     apk add --no-cache shadow sudo
+    SHELL_PATH=/bin/sh
 else
     echo "Linux distro ${ID} not supported."
     exit 1
@@ -53,42 +53,42 @@ cat /etc/group
 
 # Create or update a non-root user to match UID/GID.
 group_name="${USERNAME}"
-if id -u ${USERNAME} > /dev/null 2>&1; then
+if id -u "${USERNAME}" > /dev/null 2>&1; then
     # User exists, update if needed
-    if [ "${USER_GID}" != "automatic" ] && [ "$USER_GID" != "$(id -g $USERNAME)" ]; then
-        group_name="$(id -gn $USERNAME)"
-        groupmod --gid $USER_GID ${group_name}
-        usermod --gid $USER_GID $USERNAME
+    if [ "${USER_GID}" != "automatic" ] && [ "${USER_GID}" != "$(id -g "${USERNAME}")" ]; then
+        group_name="$(id -gn "${USERNAME}")"
+        groupmod --gid "${USER_GID}" "${group_name}"
+        usermod --gid "${USER_GID}" "${USERNAME}"
     fi
-    if [ "${USER_UID}" != "automatic" ] && [ "$USER_UID" != "$(id -u $USERNAME)" ]; then
-        usermod --uid $USER_UID $USERNAME
+    if [ "${USER_UID}" != "automatic" ] && [ "${USER_UID}" != "$(id -u "${USERNAME}")" ]; then
+        usermod --uid "${USER_UID}" "${USERNAME}"
     fi
 
-elif id -nu ${USER_UID} > /dev/null 2>&1; then
+elif id -nu "${USER_UID}" > /dev/null 2>&1; then
     # UID exists, update if needed
-    EXIST_NAME="$(id -un $USER_UID)"
-    EXIST_GROUP="$(id -gn $EXIST_NAME)"
-    groupmod --new-name $USERNAME $EXIST_GROUP
-    userdel $EXIST_NAME
-    useradd -s /bin/sh --uid $USER_UID --gid $USERNAME -m $USERNAME
+    EXIST_NAME="$(id -un "${USER_UID}")"
+    EXIST_GROUP="$(id -gn "${EXIST_NAME}")"
+    groupmod --new-name "${USERNAME}" "${EXIST_GROUP}"
+    userdel "${EXIST_NAME}"
+    useradd -s "${SHELL_PATH}" --uid "${USER_UID}" --gid "${USERNAME}" -m "${USERNAME}"
 else
     # Create user
     if [ "${USER_GID}" = "automatic" ]; then
-        groupadd $USERNAME
+        groupadd "${USERNAME}"
     else
-        groupadd --gid $USER_GID $USERNAME
+        groupadd --gid "${USER_GID}" "${USERNAME}"
     fi
     if [ "${USER_UID}" = "automatic" ]; then
-        useradd -s /bin/sh --gid $USERNAME -m $USERNAME
+        useradd -s "${SHELL_PATH}" --gid "${USERNAME}" -m "${USERNAME}"
     else
-        useradd -s /bin/sh --uid $USER_UID --gid $USERNAME -m $USERNAME
+        useradd -s "${SHELL_PATH}" --uid "${USER_UID}" --gid "${USERNAME}" -m "${USERNAME}"
     fi
 fi
 
 # Add add sudo support for non-root user
 if [ "${USERNAME}" != "root" ]; then
-    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
-    chmod 0440 /etc/sudoers.d/$USERNAME
+    echo "${USERNAME} ALL=(root) NOPASSWD:ALL" > "/etc/sudoers.d/${USERNAME}"
+    chmod 0440 "/etc/sudoers.d/${USERNAME}"
 fi
 
 echo "content of /etc/passwd after setup:"
