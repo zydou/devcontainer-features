@@ -1,6 +1,6 @@
 {
     "id": "set-user",
-    "version": "1.1.6",
+    "version": "1.2.0",
     "name": "Set up username and UID:GID",
     "documentationURL": "https://github.com/zydou/devcontainer-features/tree/main/src/set-user",
     "description": "Set up a non-root user with UID and GID",
@@ -32,6 +32,11 @@
             ],
             "default": "automatic",
             "description": "Enter gid for non-root user"
+        },
+        "debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable detailed logging of this feature"
         }
     }
 }
