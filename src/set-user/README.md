@@ -18,6 +18,7 @@ Set up a non-root user with UID and GID
 | username | Enter name of non-root user to configure or none to skip | string | automatic |
 | uid | Enter uid for non-root user | string | automatic |
 | gid | Enter gid for non-root user | string | automatic |
+| debug | Enable detailed logging of this feature | boolean | false |
 
 
 
