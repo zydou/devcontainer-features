@@ -26,18 +26,18 @@ if [ "${USERNAME}" = "auto" ] || [ "${USERNAME}" = "automatic" ]; then
   USERNAME=""
   POSSIBLE_USERS=("vscode" "node" "codespace" "$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)")
   for CURRENT_USER in "${POSSIBLE_USERS[@]}"; do
-    if id -u ${CURRENT_USER} > /dev/null 2>&1; then
-      USERNAME=${CURRENT_USER}
+    if id -u "${CURRENT_USER}" > /dev/null 2>&1; then
+      USERNAME="${CURRENT_USER}"
       break
     fi
   done
   if [ "${USERNAME}" = "" ]; then
     USERNAME=root
   fi
-elif [ "${USERNAME}" = "none" ] || ! id -u ${USERNAME} > /dev/null 2>&1; then
+elif [ "${USERNAME}" = "none" ] || ! id -u "${USERNAME}" > /dev/null 2>&1; then
   echo "user ${USERNAME} not exits, create it."
-  groupadd ${USERNAME}
-  useradd -s /bin/bash --gid $USERNAME -m $USERNAME
+  groupadd "${USERNAME}"
+  useradd -s /bin/bash --gid "${USERNAME}" -m "${USERNAME}"
 fi
 
 echo "USERNAME is ${USERNAME}"
@@ -91,16 +91,16 @@ check_packages git curl ca-certificates
 # Download official install script
 curl -fsLS get.chezmoi.io -o /tmp/install_chezmoi.sh
 chmod +x /tmp/install_chezmoi.sh
-/tmp/install_chezmoi.sh -b ${BINDIR} -t ${CHEZMOI_VERSION} -d
+/tmp/install_chezmoi.sh -b "${BINDIR}" -t "${CHEZMOI_VERSION}" -d
 if [ "${DOTFILES_REPO}" != "none" ]; then
   echo "chezmoi init && apply"
   if [ "${ONE_SHOT}" = "false" ]; then
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --no-tty --depth 1"
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty"
+    su "${USERNAME}" bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --no-tty --depth 1"
+    su "${USERNAME}" bash -c "${BINDIR}/chezmoi apply --force --no-tty"
     # Do it again as some scripts unexpected failed
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi apply --force --no-tty"
+    su "${USERNAME}" bash -c "${BINDIR}/chezmoi apply --force --no-tty"
   else
-    su ${USERNAME} bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty"
+    su "${USERNAME}" bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty"
   fi
   rm -rf "/home/${USERNAME}/.cache"
 fi
@@ -108,7 +108,7 @@ fi
 
 cleanup
 
-cd $HOME
+cd "${HOME}" || exit
 rm -rf ./cache
 rm -rf /tmp/*
 echo "Done!"
