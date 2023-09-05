@@ -8,15 +8,6 @@
             }
         }
     },
-    "py36": {
-        "image": "python:3.6-slim",
-        "features": {
-            "python-pkgs": {
-                "pipx_utils": "black==22.3.0",
-                "pip_pkgs": "yapf==0.30.0"
-            }
-        }
-    },
     "py37": {
         "image": "python:3.7-slim",
         "features": {
