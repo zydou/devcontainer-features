@@ -6,7 +6,6 @@ CHEZMOI_VERSION=${VERSION:-"latest"}
 DOTFILES_REPO=${DOTFILES_REPO:-"none"}
 USERNAME=${USERNAME:-"automatic"}
 ONE_SHOT=${ONE_SHOT:-"false"}
-BINDIR="/usr/bin"  # chezmoi installation directory
 cleanup() {
   source /etc/os-release
   case "${ID}" in
@@ -91,6 +90,8 @@ check_packages git curl ca-certificates
 # Download official install script
 curl -fsLS get.chezmoi.io -o /tmp/install_chezmoi.sh
 chmod +x /tmp/install_chezmoi.sh
+su "${USERNAME}" bash -c "mkdir -p /home/${USERNAME}/.local/bin"
+BINDIR="/home/${USERNAME}/.local/bin"
 /tmp/install_chezmoi.sh -b "${BINDIR}" -t "${CHEZMOI_VERSION}" -d
 if [ "${DOTFILES_REPO}" != "none" ]; then
   echo "chezmoi init && apply"
