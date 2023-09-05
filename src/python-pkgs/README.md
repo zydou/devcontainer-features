@@ -18,6 +18,12 @@ Install custom packages via pip or pipx
 | pipx_utils | Pipx tools to install.(space-delimited string) | string | pipx |
 | pip_pkgs | Pip packages to install.(space-delimited string) | string | none |
 
+## Customizations
+
+### VS Code Extensions
+
+- `ms-python.python`
+
 
 
 ---
