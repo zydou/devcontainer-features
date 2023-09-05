@@ -104,6 +104,7 @@ if [ "${DOTFILES_REPO}" != "none" ]; then
   else
     su "${USERNAME}" bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty"
   fi
+  rm -rf "/home/${USERNAME}/.cache/chezmoi"
 fi
 
 
