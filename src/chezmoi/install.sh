@@ -76,6 +76,7 @@ check_packages() {
           fi
           ;;
   esac
+  cleanup
 }
 
 export DEBIAN_FRONTEND=noninteractive
@@ -103,13 +104,9 @@ if [ "${DOTFILES_REPO}" != "none" ]; then
   else
     su "${USERNAME}" bash -c "${BINDIR}/chezmoi init ${DOTFILES_REPO} --one-shot --no-tty"
   fi
-  rm -rf "/home/${USERNAME}/.cache"
 fi
 
 
-cleanup
-
 cd "${HOME}" || exit
-rm -rf ./cache
-rm -rf /tmp/*
+rm -f /tmp/install_chezmoi.sh
 echo "Done!"
