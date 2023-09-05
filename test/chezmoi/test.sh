@@ -45,7 +45,7 @@ if [ "${NON_ROOT_USER}" = "" ]; then
   NON_ROOT_USER=root
 fi
 
-su "$NON_ROOT_USER" -c "chezmoi --version"
+su "$NON_ROOT_USER" -c "/home/$NON_ROOT_USER/.local/bin/chezmoi data"
 ret=$?
 if [ "$ret" -eq '0' ]; then
     echo '✅ Passed(chezmoi): chezmoi installed successfully'
